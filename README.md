@@ -2,34 +2,32 @@
 
 MiniEvent is a lightweight, zero-dependency event emitter for modern JavaScript applications.
 
-The library provides a simple and predictable way to create, manage, and emit custom events between different parts of an application. It is designed to be small, fast, and easy to understand while keeping a clean and modern API.
+The library provides a simple and predictable way to create, manage, and emit custom events between different parts of an application.
 
-MiniEvent focuses only on the essential features of event-driven programming without unnecessary abstractions. The entire implementation is built around simplicity, performance, and maintainability.
+MiniEvent is designed to be small, fast, and easy to understand. It focuses only on the essential features required for event-driven programming without unnecessary abstractions.
 
-Features
+## Features
 
 - Zero dependencies
 - Lightweight implementation
-- Modern JavaScript support
-- ES Module support
-- Simple event-based API
-- Fast listener management using Map and Set
+- Modern ES Module support
+- Simple and predictable API
+- Fast listener management
 - Duplicate listener prevention
-- Automatic cleanup of empty events
+- Automatic cleanup of unused events
 - Chainable methods
 - Safe event emission
 - Small and readable codebase
 
-Why MiniEvent
+## Why MiniEvent
 
-Many applications need a way for different modules to communicate without creating direct dependencies between them.
+Event-driven architecture allows different parts of an application to communicate without creating direct dependencies between modules.
 
-An event emitter allows one part of an application to send notifications while other parts can subscribe and react independently.
+MiniEvent provides a minimal solution for creating communication channels between independent components.
 
-MiniEvent provides this functionality with a minimal amount of code while keeping the API clear and predictable.
+## Basic Usage
 
-Basic Usage
-
+```javascript
 import { MiniEvent } from "minievent";
 
 const events = new MiniEvent();
@@ -40,46 +38,31 @@ events.on("message", (text) => {
 
 events.emit("message", "Hello World");
 
-Event Listeners
+Adding Listeners
 
-Listeners can be added using the "on" method.
+Use the on method to subscribe to events.
 
-events.on("userLogin", (user) => {
+events.on("login", (user) => {
     console.log(user);
 });
 
-A listener can receive any number of arguments passed through the event.
+One-Time Listeners
 
-events.emit("userLogin", {
-    name: "Timur",
-    role: "developer"
-});
-
-One-Time Events
-
-The "once" method creates a listener that will be removed automatically after the first execution.
+Use the once method for listeners that should execute only one time.
 
 events.once("ready", () => {
-    console.log("Application started");
+    console.log("Ready");
 });
 
 Removing Listeners
 
-Specific listeners can be removed using the "off" method.
+Use the off method to remove a listener.
 
-function handler() {
-    console.log("Event fired");
-}
-
-events.on("click", handler);
-
-events.off("click", handler);
+events.off("login", handler);
 
 Clearing Events
 
-MiniEvent allows removing listeners from a specific event or clearing all registered events.
-
-Remove one event:
+Remove a specific event:
 
 events.clear("message");
 
@@ -95,105 +78,90 @@ Registers a new event listener.
 
 Returns the current MiniEvent instance.
 
----
-
 once(event, listener)
 
-Registers a listener that runs only once.
-
-After execution, the listener is automatically removed.
-
----
+Registers a listener that executes only once.
 
 off(event, listener)
 
-Removes a specific listener from an event.
-
----
+Removes a specific event listener.
 
 emit(event, ...args)
 
-Emits an event and passes arguments to all registered listeners.
+Emits an event and passes arguments to listeners.
 
-Returns "true" if listeners were found, otherwise returns "false".
-
----
+Returns true if listeners exist, otherwise returns false.
 
 clear(event)
 
-Removes listeners.
+Removes listeners from an event.
 
-If an event name is provided, only that event will be removed.
-
-If no argument is provided, all events will be removed.
-
----
+Without arguments, removes all events.
 
 has(event)
 
 Checks whether an event exists.
 
-Returns a boolean value.
-
----
-
 listenerCount(event)
 
-Returns the number of listeners registered for an event.
-
----
+Returns the amount of listeners for an event.
 
 eventCount()
 
-Returns the number of registered events.
+Returns the amount of registered events.
 
 Design Principles
 
-MiniEvent follows several simple principles:
+MiniEvent follows several principles:
 
-- Keep the implementation small.
-- Avoid unnecessary complexity.
-- Use modern JavaScript features.
-- Provide predictable behavior.
-- Make the API easy to learn.
-- Keep performance consistent.
+Small codebase
 
-Every method has a specific responsibility, making the library easy to maintain and extend.
+No unnecessary features
+
+Modern JavaScript standards
+
+Predictable behavior
+
+Simple API
+
+Easy maintenance
+
+
+Technical Details
+
+MiniEvent uses:
+
+Map for storing events
+
+Set for storing listeners
+
+
+This provides fast lookup, duplicate prevention, and reliable event management.
 
 Use Cases
 
 MiniEvent can be used for:
 
-- Application communication
-- Browser projects
-- Node.js applications
-- Plugin systems
-- Game development
-- CLI applications
-- Internal event buses
-- Modular architectures
-- Small JavaScript libraries
+Browser applications
 
-Technical Details
+Node.js applications
 
-MiniEvent uses "Map" for storing events and "Set" for storing listeners.
+Plugin systems
 
-This approach provides:
+CLI tools
 
-- Fast event lookup.
-- Automatic prevention of duplicate listeners.
-- Simple listener management.
-- Reliable cleanup behavior.
+Games
 
-During event emission, listeners are safely copied before execution. This allows listeners to remove themselves or modify subscriptions without breaking the event cycle.
+Internal event buses
+
+Modular architectures
+
 
 Philosophy
 
-MiniEvent is built around the idea that a useful library does not need to be large.
+MiniEvent is built around simplicity.
 
-A small, focused, and well-designed tool can often be easier to use and maintain than a large framework with many unnecessary features.
-
-MiniEvent provides only what is needed for event-driven programming and avoids adding features that do not belong in a minimal event emitter.
+A small and focused library can be easier to understand, maintain, and use than a large solution with unnecessary complexity.
 
 License
 
